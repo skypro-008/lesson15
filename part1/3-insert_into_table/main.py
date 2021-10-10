@@ -23,7 +23,7 @@ sqlite_query = ('')  # TODO напишите здесь запрос в базу
 
 
 # Не удаляйте этот код, он используется
-# для вывода заголовков созданной таблицы
+# для вывода результата
 def print_result(sqlite_query):
     cur.execute(sqlite_query)
     result_query = ('SELECT * from animals')

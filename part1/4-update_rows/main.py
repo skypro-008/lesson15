@@ -22,7 +22,7 @@ sqlite_query_second = ("")  # TODO напишите здесь запрос на
 cur.execute(sqlite_query_second)
 
 # Не удаляйте этот код, он используется
-# для вывода заголовков созданной таблицы
+# для вывода результата
 
 
 def print_result():
