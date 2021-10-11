@@ -30,7 +30,7 @@ class CreateTableTestCase(SkyproTestCase):
         student_name = self.student_table_names[0][0]
         author_name = self.author_table_names[0][0]
         self.assertEqual(student_name, author_name,
-                         r'%@Проверьте, правильно ли вы назвали таблицу.'
+                         r'%@Проверьте, правильно ли вы назвали таблицу. '
                          f'Таблица должна называться {author_name}, '
                          f'тогда как у вас в запросе {student_name}')
 
@@ -49,8 +49,8 @@ class CreateTableTestCase(SkyproTestCase):
         author_columns = [x[0] for x in author_table]
         self.assertEqual(
             student_columns, author_columns,
-            (r'%@ Проверьте, правильно ли определены поля в таблице.'
-             f'Должны быть следующие поля {author_columns}, тогда как'
+            (r'%@ Проверьте, правильно ли определены поля в таблице. '
+             f'Должны быть следующие поля {author_columns}, тогда как '
              f'у вас указаны {student_columns}'))
 
     def test_table_columns_type_is_correct(self):
@@ -93,6 +93,8 @@ class CreateTableTestCase(SkyproTestCase):
 
     @classmethod
     def tearDownClass(cls):
+        cls.student_con.close()
+        cls.author_con.close()
         os.remove(cls.student_test_db)
         os.remove(cls.author_test_db)
 

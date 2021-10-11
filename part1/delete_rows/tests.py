@@ -91,6 +91,8 @@ class DirectorsTestCase(SkyproTestCase):
 
     @classmethod
     def tearDownClass(cls):
+        cls.student_con.close()
+        cls.author_con.close()
         os.remove(cls.student_test_db)
         os.remove(cls.author_test_db)
 
