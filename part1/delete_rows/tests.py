@@ -7,7 +7,7 @@ import os
 from tools import create_table, clean_base
 
 
-class DirectorsTestCase(SkyproTestCase):
+class DeleteRowTestCase(SkyproTestCase):
     @classmethod
     def setUpClass(cls):
         cls.student_test_db = "./student_test.db"
