@@ -1,11 +1,15 @@
 import unittest
 import sqlite3
-
+import os
 
 class StatMixin:
     def send_stat(self, result):
+        if not hasattr(self.index):
+            self.index = 1
+        else: 
+            self.index +=1
         if result.wasSuccessful():
-            print("Тест пройден успешно!")
+            print(f"Тест {self.index} пройден успешно!")
 
 
 class SkyproTestCase(StatMixin, unittest.TestCase):
@@ -96,3 +100,31 @@ class SkyproTestCase(StatMixin, unittest.TestCase):
             if keyword in query:
                 lst.append(keyword)
         return lst
+
+def create_table(con):
+    cur = con.cursor()
+    sqlite_query = (
+        "CREATE TABLE animals (" 
+        "Id integer PRIMARY KEY AUTOINCREMENT, "
+        "AnimalType varchar(50) NOT NULL, "
+        "Name varchar(50) NOT NULL DEFAULT 'Noname', "
+        "Sex varchar(50), "
+        "DateOfBirth date,"
+        "Age integer,"
+        "Weight decimal)"
+)
+    cur.execute(sqlite_query)
+    sqlite_query = (
+        "INSERT INTO 'animals' "
+        "('AnimalType', 'Sex', 'Name', 'DateOfBirth', 'Age', 'Weight') VALUES "
+        "('Кошка', 'Ж', 'Соня', '2013-12-02', 7, 2.15),"
+        "('Кот', 'М', 'Семен', '2017-05-03', 4, 4.5),"
+        "('Собака', 'Ж', 'Алина', '2018-11-12', 2, 20.8),"
+        "('Пес', 'М', 'Бобик', '2015-08-25', 6, 5.75)"
+    )
+    cur.execute(sqlite_query)
+    return con
+
+def clean_base(*args):
+    for arg in args:
+        os.remove(arg)

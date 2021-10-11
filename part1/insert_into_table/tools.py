@@ -1,6 +1,6 @@
 import unittest
 import sqlite3
-
+import os
 
 class StatMixin:
     def send_stat(self, result):
@@ -110,3 +110,11 @@ def create_table(con):
 )
     cur.execute(sqlite_query)
     return con
+
+
+def clean_base(*args):
+    try:
+        for arg in args:
+            os.remove(arg)
+    except:
+        pass

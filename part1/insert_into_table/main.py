@@ -19,11 +19,11 @@ from tools import create_table
 con = sqlite3.connect(":memory:")
 con = create_table(con)  # сформируем таблицу из предыдущих уроков
 cur = con.cursor()
-sqlite_query = ('')  # TODO напишите здесь запрос в базу для добавления строк
-
-
+sqlite_query = ("")  # TODO составьте запрос на создание таблицы
 # Не удаляйте этот код, он используется
 # для вывода результата
+
+
 def print_result(sqlite_query):
     cur.execute(sqlite_query)
     result_query = ('SELECT * from animals')

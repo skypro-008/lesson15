@@ -2,7 +2,7 @@ import unittest
 import main
 import solution
 import sqlite3
-from tools import SkyproTestCase
+from tools import SkyproTestCase, clean_base
 import os
 
 
@@ -11,6 +11,10 @@ class DirectorsTestCase(SkyproTestCase):
     def setUpClass(cls):
         cls.student_test_db = "./student_test.db"
         cls.author_test_db = "./author_test.db"
+        test_b = os.path.exists(cls.author_test_db)
+        test_author_b = os.path.exists(cls.author_test_db)
+        if test_b or test_author_b:
+            clean_base(cls.student_test_db, cls.author_test_db)
         cls.student_con = sqlite3.connect(cls.student_test_db)
         cls.author_con = sqlite3.connect(cls.author_test_db)
         cls.student_cur = cls.student_con.cursor()
@@ -68,24 +72,6 @@ class DirectorsTestCase(SkyproTestCase):
                 str(value), string[1],
                 f'Проверьте, правильно ли указан тип для поля {key}'
             )
-
-    def test_name_has_default_value(self):
-        student_query = main.sqlite_query.lower()
-        x = student_query.find('name')
-        string = student_query[x:]
-        x = string.find(',')
-        string = string[:x]
-        x = string.find('default')
-        string = string[x:]
-        self.assertIn(
-            'default', string,
-            'Проверьте, что установили значение '
-            'по умолчанию для поля Name'
-        )
-        self.assertIn(
-            'noname', string,
-            'Проверьте, что по умолчанию полю '
-            'Name присваивается значение Noname')
 
     @classmethod
     def tearDownClass(cls):
