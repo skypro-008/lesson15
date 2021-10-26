@@ -60,18 +60,27 @@ class CreateTableTestCase(SkyproTestCase):
             'name': 'varchar',
             'sex': 'varchar',
             'dateofbirth': 'date',
-            'age': 'integer',
-            'weight': 'decimal'
+            'age': ['integer', 'int'],
+            'weight': ['decimal', 'float']
         }
         student_query = main.sqlite_query.lower()
         for key in fields.keys():
             x = student_query.find(key)
             string = student_query[x:].split(' ')
+            string = string[:2]
             value = fields[key]
-            self.assertIn(
-                str(value), string[1],
-                f'Проверьте, правильно ли указан тип для поля {key}'
-            )
+            if isinstance(value, list):
+                checker = []
+                for typ in value:
+                    checker.append(string[1].find(typ))
+                self.assertIn(
+                    0, checker,
+                    f"%@Проверьте, правильно ли указан тип для поля {key}")
+            else:
+                self.assertIn(
+                    str(value), string[1],
+                    f'Проверьте, правильно ли указан тип для поля {key}'
+                )
 
     def test_name_has_default_value(self):
         student_query = main.sqlite_query.lower()
