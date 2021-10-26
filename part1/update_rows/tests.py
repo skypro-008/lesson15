@@ -7,7 +7,7 @@ import os
 from tools import create_table, clean_base
 
 
-class DirectorsTestCase(SkyproTestCase):
+class UpdateTestCase(SkyproTestCase):
     @classmethod
     def setUpClass(cls):
         cls.student_test_db = "./student_test.db"
@@ -61,6 +61,8 @@ class DirectorsTestCase(SkyproTestCase):
 
     @classmethod
     def tearDownClass(cls):
+        cls.student_con.close()
+        cls.author_con.close()
         os.remove(cls.student_test_db)
         os.remove(cls.author_test_db)
 

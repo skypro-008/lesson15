@@ -5,7 +5,7 @@ import os
 class StatMixin:
     def send_stat(self, result):
         if result.wasSuccessful():
-            print("Тест пройден успешно!")
+            print(f"Тест {result.testsRun} пройден успешно!")
 
 
 class SkyproTestCase(StatMixin, unittest.TestCase):

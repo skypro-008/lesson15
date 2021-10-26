@@ -6,7 +6,7 @@ from tools import SkyproTestCase, clean_base
 import os
 
 
-class DirectorsTestCase(SkyproTestCase):
+class CreateTableTestCase(SkyproTestCase):
     @classmethod
     def setUpClass(cls):
         cls.student_test_db = "./student_test.db"
@@ -30,7 +30,7 @@ class DirectorsTestCase(SkyproTestCase):
         student_name = self.student_table_names[0][0]
         author_name = self.author_table_names[0][0]
         self.assertEqual(student_name, author_name,
-                         r'%@Проверьте, правильно ли вы назвали таблицу.'
+                         r'%@Проверьте, правильно ли вы назвали таблицу. '
                          f'Таблица должна называться {author_name}, '
                          f'тогда как у вас в запросе {student_name}')
 
@@ -49,7 +49,7 @@ class DirectorsTestCase(SkyproTestCase):
         author_columns = [x[0] for x in author_table]
         self.assertEqual(
             student_columns, author_columns,
-            (r'%@ Проверьте, правильно ли определены поля в таблице.'
+            (r'%@ Проверьте, правильно ли определены поля в таблице. '
              f'Должны быть следующие поля {author_columns}, тогда как'
              f'у вас указаны {student_columns}'))
 
@@ -84,6 +84,8 @@ class DirectorsTestCase(SkyproTestCase):
 
     @classmethod
     def tearDownClass(cls):
+        cls.student_con.close()
+        cls.author_con.close()
         os.remove(cls.student_test_db)
         os.remove(cls.author_test_db)
 

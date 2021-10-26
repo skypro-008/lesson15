@@ -4,12 +4,8 @@ import os
 
 class StatMixin:
     def send_stat(self, result):
-        if not hasattr(self.index):
-            self.index = 1
-        else: 
-            self.index +=1
         if result.wasSuccessful():
-            print(f"Тест {self.index} пройден успешно!")
+            print(f"Тест {result.testsRun} пройден успешно!")
 
 
 class SkyproTestCase(StatMixin, unittest.TestCase):

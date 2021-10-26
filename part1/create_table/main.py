@@ -17,7 +17,7 @@ import prettytable
 
 con = sqlite3.connect(":memory:")
 cur = con.cursor()
-sqlite_query = ("")  # TODO составьте запрос на создание таблицы
+sqlite_query = ("")
 
 # Не удаляйте код ниже, он используется
 # для вывода заголовков созданной таблицы
